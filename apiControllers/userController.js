@@ -45,11 +45,11 @@ router.post('/captcha', (req, res) => {
 router.post('/login', (req, res) => {
     userRepo.login(req.body.user, req.body.pwd)
         .then(userObj => {
+            debugger;
             if (userObj) {
-                debugger;
                 var token = authRepo.generateAccessToken(userObj);
                 var refreshToken = authRepo.generateRefreshToken();
-                authRepo.updateRefreshToken(userObj.f_ID, refreshToken)
+                authRepo.updateRefreshToken(userObj.oid, refreshToken)
                     .then(rs => {
                         res.json({
                             auth: true,
