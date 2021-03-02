@@ -38,6 +38,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     if (req.params.id) {
         var id = req.params.id;
+        var employee = {};
 
         if (isNaN(id)) {
             res.statusCode = 400;
@@ -45,9 +46,9 @@ router.get('/:id', (req, res) => {
             return;
         }
 
-        employeeRepo.load(id).then(rows => {
-            if (rows.length > 0) {
-                res.json(rows[0]);
+        employeeRepo.load(id).then(employees => {
+            if (employees.length > 0) {
+                res.json(employees[0]);
             } else {
                 res.statusCode = 204;
                 res.end();

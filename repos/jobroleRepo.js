@@ -13,16 +13,21 @@ exports.loadPage = function(page) {
 }
 
 exports.load = function(id) {
-    var sql = `select * from jobroles where OID = ${id}`;
+    var sql = `select * from jobroles where oid = ${id}`;
+    return db.load(sql);
+}
+
+exports.loadByEmployee = function(employee_oid) {
+    var sql = `select * from jobroles where employee_oid = ${employee_oid}`;
     return db.load(sql);
 }
 
 exports.insert = (job) => {
-    var sql = `insert into jobroles(Name) values(${job.Name})`;
+    var sql = `insert into jobroles(name) values(${job.Name})`;
 	return db.insert(sql);
 }
 
 exports.delete = function (id) {
-	var sql = `delete from jobroles where OID = ${id}`;
+	var sql = `delete from jobroles where oid = ${id}`;
 	return db.delete(sql);
 }

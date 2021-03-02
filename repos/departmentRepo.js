@@ -13,16 +13,16 @@ exports.loadPage = function(page) {
 }
 
 exports.load = function(id) {
-    var sql = `select * from departments where OID = ${id}`;
+    var sql = `select * from departments where oid = ${id}`;
     return db.load(sql);
 }
 
 exports.insert = (dep) => {
-    var sql = `insert into departments(Name) values(${dep.Name})`;
+    var sql = `insert into departments(name) values(${dep.name})`;
 	return db.insert(sql);
 }
 
 exports.delete = function (id) {
-	var sql = `delete from departments where OID = ${id}`;
+	var sql = `delete from departments where oid = ${id}`;
 	return db.delete(sql);
 }

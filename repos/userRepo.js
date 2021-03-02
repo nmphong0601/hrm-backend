@@ -12,15 +12,15 @@ exports.add = function(poco) {
     //     Permission: 0
     // }
 
-    var md5_password = md5(poco.Password);
-    var sql = `insert into users(f_Username, f_Password, f_Name, f_Email, f_DOB, f_Permission) values('${poco.Username}', '${md5_password}', '${poco.Name}', '${poco.Email}', '${poco.DOB}', ${poco.Permission})`;
+    var md5_password = md5(poco.password);
+    var sql = `insert into users(user_name, password, permission) values('${poco.user_name}', '${md5_password}', '${poco.permission}')`;
     return db.insert(sql);
 }
 
 exports.login = function(userName, password) {
     return new Promise((resolve, reject) => {
         var md5_password = md5(password);
-        var sql = `select * from users where f_Username = '${userName}' and f_Password = '${md5_password}'`;
+        var sql = `select * from users where user_name = '${userName}' and password = '${md5_password}'`;
         db.load(sql)
             .then(rows => {
                 if (rows.length === 0) {
@@ -35,6 +35,6 @@ exports.login = function(userName, password) {
 }
 
 exports.load = function(id) {
-    var sql = `select * from users where f_ID = ${id}`;
+    var sql = `select * from users where oid = ${id}`;
     return db.load(sql);
 }

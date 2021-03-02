@@ -1,3 +1,4 @@
+var md5 = require('crypto-js/md5');
 var db = require('../fn/mysql-db'),
     opts = require('../fn/opts');
 
@@ -13,29 +14,36 @@ exports.loadPage = function(page) {
 }
 
 exports.load = function(id) {
-    var sql = `select * from employees where OID = ${id}`;
+    var sql = `select * from employees where oid = ${id}`;
     return db.load(sql);
 }
 
 exports.loadByDepartment = function(depOID) {
-	var sql = `select * from employees where DepartmentOID = ${depOID}`;
+	var sql = `select * from employees where department_oid = ${depOID}`;
 	return db.load(sql);
 }
 
 exports.loadByDepartmentPage = function(depOID, page) {
     const limit = opts.GENERAL.EMPLOYEE_PER_PAGE + 1;
     const offset = (page - 1) * opts.GENERAL.EMPLOYEE_PER_PAGE;
-    const sql = `select * from employees where DepartmentOID = ${depOID} limit ${limit} offset ${offset}`;
+    const sql = `select * from employees where department_oid = ${depOID} limit ${limit} offset ${offset}`;
     return db.load(sql);
+}
+
+exports.insertUser = function(user) {
+    var md5_password = md5(user.password);
+    var sql = `insert into users(user_name, password, permission) values('${user.user_name}', '${md5_password}', '${user.permission}')`;
+    return db.insert(sql);
 }
 
 exports.insert = (emp) => {
     return new Promise((resolve, reject) => {
-        var sql = `insert into employees(FirtName, LastName, FullName, JobRoleOID, DepOID) values(${emp.FirtName}, ${emp.LastName}, ${emp.FirtName} + ${emp.LastName}, ${emp.JobRoleOID}, ${emp.DepOID})`;
+        var sql = `insert into employees(firt_name, last_name, full_name, birth_date, gender, avatar, phone, address, email, jobrole_oid, department_oid) `
+                  +`values(${emp.firt_name}, ${emp.last_name}, ${emp.firt_name}` +' '+ `${emp.last_name}, ${emp.birth_date}, ${emp.gender}, ${emp.avatar}, ${emp.phone}, ${emp.address}, ${emp.email}, ${emp.jobrole_oid}, ${emp.department_oid})`;
         db.insert(sql)
             .then(id => {
                 var promises = [];
-                promises.push();//Insert User
+                promises.push(this.insertUser(emp.user));//Insert User
 
                 return Promise.all(promises);
             })
@@ -45,6 +53,6 @@ exports.insert = (emp) => {
 }
 
 exports.delete = function (id) {
-	var sql = `delete from employees where OID = ${id}`;
+	var sql = `delete from employees where oid = ${id}`;
 	return db.delete(sql);
 }

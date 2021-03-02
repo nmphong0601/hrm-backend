@@ -46,6 +46,7 @@ router.post('/login', (req, res) => {
     userRepo.login(req.body.user, req.body.pwd)
         .then(userObj => {
             if (userObj) {
+                debugger;
                 var token = authRepo.generateAccessToken(userObj);
                 var refreshToken = authRepo.generateRefreshToken();
                 authRepo.updateRefreshToken(userObj.f_ID, refreshToken)

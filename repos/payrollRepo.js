@@ -13,19 +13,19 @@ exports.loadPage = function(page) {
 }
 
 exports.load = function(id) {
-    var sql = `select * from payrolls where OID = ${id}`;
+    var sql = `select * from payrolls where oid = ${id}`;
     return db.load(sql);
 }
 
-exports.loadByDepartment = function(depOID) {
-	var sql = `select * from payrolls where DepartmentOID = ${depOID}`;
+exports.loadByEmployee = function(depOID) {
+	var sql = `select * from payrolls where employee_oid = ${depOID}`;
 	return db.load(sql);
 }
 
-exports.loadByDepartmentPage = function(depOID, page) {
+exports.loadByEmployeePage = function(depOID, page) {
     const limit = opts.GENERAL.PAY_PER_PAGE + 1;
     const offset = (page - 1) * opts.GENERAL.PAY_PER_PAGE;
-    const sql = `select * from payrolls where DepartmentOID = ${depOID} limit ${limit} offset ${offset}`;
+    const sql = `select * from payrolls where employee_oid = ${depOID} limit ${limit} offset ${offset}`;
     return db.load(sql);
 }
 
@@ -35,11 +35,11 @@ exports.insert = (pay) => {
     //     db.insert(sql).then(value => resolve(value)).catch(err => reject(err));
     // });
 
-    var sql = `insert into payrolls(Salary, EmpOID) values(${pay.Salary, pay.EmpOID})`;
+    var sql = `insert into payrolls(employee_oid, salary, bonus, personal_income_tax) values(${pay.employee_oid, pay.salary, pay.bonus, pay.personal_imcome_tax})`;
 	return db.insert(sql);
 }
 
 exports.delete = function (id) {
-	var sql = `delete from payrolls where OID = ${id}`;
+	var sql = `delete from payrolls where oid = ${id}`;
 	return db.delete(sql);
 }

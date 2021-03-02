@@ -53,10 +53,10 @@ exports.generateRefreshToken = () => {
 exports.updateRefreshToken = (id, refreshToken) => {
     return new Promise((resolve, reject) => {
         var rdt = moment().format('YYYY-MM-DD HH:mm:ss');
-        var sql = `delete from userRefreshTokenExt where ID = ${id}`;
+        var sql = `delete from userrefreshtokenext where oid = ${id}`;
         db.delete(sql)
             .then(affectedRows => {
-                sql = `insert into userRefreshTokenExt values(${id}, '${refreshToken}', '${rdt}')`;
+                sql = `insert into userrefreshtokenext values(${id}, '${refreshToken}', '${rdt}')`;
                 return db.insert(sql);
             })
             .then(insert_id => {
@@ -67,11 +67,11 @@ exports.updateRefreshToken = (id, refreshToken) => {
 }
 
 exports.verifyRefreshToken = refreshToken => {
-    var sql = `select * from userRefreshTokenExt where refreshToken = '${refreshToken}'`;
+    var sql = `select * from userRefreshTokenExt where refresh_token = '${refreshToken}'`;
     return db.load(sql);
 }
 
 exports.deleteRefreshToken = id => {
-    var sql = `delete from userRefreshTokenExt where ID = ${id}`;
+    var sql = `delete from userRefreshTokenExt where oid = ${id}`;
     return db.delete(sql);
 }

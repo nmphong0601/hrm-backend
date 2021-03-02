@@ -8,7 +8,7 @@ var departmentCtrl = require('./apiControllers/departmentController'),
 	jobroleCtrl = require('./apiControllers/jobroleController'),
 	employeeCtrl = require('./apiControllers/employeeController'),
 	payrollCtrl = require('./apiControllers/payrollController'),
-	userCtrl = require('./apiControllers/userController'),
+	userCtrl = require('./apiControllers/userController');
 
 var verifyAccessToken = require('./repos/authRepo').verifyAccessToken;
 
@@ -30,11 +30,11 @@ app.use(staticDir);
 // 	res.json(ret);
 // });
 
-app.use('/departments', departmentCtrl);
-app.use('/jobroles', jobroleCtrl);
-app.use('/employees', employeeCtrl);
-app.use('/users', userCtrl);
-app.use('/payroll', verifyAccessToken, payrollCtrl);
+app.use('/api/v1/departments', departmentCtrl);
+app.use('/api/v1/jobroles', jobroleCtrl);
+app.use('/api/v1/employees', employeeCtrl);
+app.use('/api/v1/users', userCtrl);
+app.use('/api/v1/payroll', verifyAccessToken, payrollCtrl);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
