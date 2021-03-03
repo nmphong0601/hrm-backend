@@ -22,6 +22,11 @@ exports.insert = (dep) => {
 	return db.insert(sql);
 }
 
+exports.update = (id, dep) => {
+    var sql = `update departments set name = '${dep.name}' where oid = ${id}`;
+	return db.update(sql);
+}
+
 exports.delete = function (id) {
 	var sql = `delete from departments where oid = ${id}`;
 	return db.delete(sql);

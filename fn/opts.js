@@ -16,10 +16,10 @@ var opts = {
     },
 
     DB: {
-        HOST: '127.0.0.1',
+        HOST: 'db4free.net',
         PORT: '3306',
-        USER: 'root',
-        PWD: 'nmp@123',
+        USER: 'nmp_admin',
+        PWD: 'nmp_admin',
         DB_NAME: 'hrm_db'
     }
 }

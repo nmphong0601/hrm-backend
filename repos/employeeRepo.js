@@ -39,7 +39,7 @@ exports.insertUser = function(user) {
 exports.insert = (emp) => {
     return new Promise((resolve, reject) => {
         var sql = `insert into employees(firt_name, last_name, full_name, birth_date, gender, avatar, phone, address, email, jobrole_oid, department_oid) `
-                  +`values(${emp.firt_name}, ${emp.last_name}, ${emp.firt_name}` +' '+ `${emp.last_name}, ${emp.birth_date}, ${emp.gender}, ${emp.avatar}, ${emp.phone}, ${emp.address}, ${emp.email}, ${emp.jobrole_oid}, ${emp.department_oid})`;
+                  +`values(${emp.firt_name}, ${emp.last_name}, '${emp.firt_name} ${emp.last_name}', ${emp.birth_date}, ${emp.gender}, ${emp.avatar}, ${emp.phone}, ${emp.address}, ${emp.email}, ${emp.jobrole_oid}, ${emp.department_oid})`;
         db.insert(sql)
             .then(id => {
                 var promises = [];
@@ -52,7 +52,12 @@ exports.insert = (emp) => {
     });
 }
 
+exports.update = (id, emp) => {
+    var sql = `update employees set first_name = '${emp.first_name}', last_name = '${emp.last_name}' , full_name = '${emp.first_name} ${emp.last_name}' , birth_date = '${emp.birth_date}' , gender = '${emp.gender}' , avatar = '${emp.avatar}' , phone = '${emp.phone}' , address = '${emp.address}' , email = '${emp.email}', jobrole_oid = '${emp.jobrole_oid}', department_oid = '${dep.department_oid}' where oid = ${id}`;
+	return db.update(sql);
+}
+
 exports.delete = function (id) {
 	var sql = `delete from employees where oid = ${id}`;
-	return db.delete(sql);
+	return db.delete(sql);``
 }

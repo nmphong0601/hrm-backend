@@ -17,10 +17,22 @@ exports.add = function(poco) {
     return db.insert(sql);
 }
 
-exports.login = function(userName, password) {
+exports.changePassword = (user_name, new_password) => {
+    var md5_password = md5(new_password);
+    var sql = `update users set password = '${md5_password}' where user_name = ${user_name}`;
+    return db.update(sql);  
+}
+
+exports.resetPassword = (user_name) => {
+    var md5_password = md5('123456');
+    var sql = `update users set password = '${md5_password}' where user_name = ${user_name}`;
+    return db.update(sql);  
+}
+
+exports.login = function(user_name, password) {
     return new Promise((resolve, reject) => {
         var md5_password = md5(password);
-        var sql = `select * from users where user_name = '${userName}' and password = '${md5_password}'`;
+        var sql = `select * from users where user_name = '${user_name}' and password = '${md5_password}'`;
         db.load(sql)
             .then(rows => {
                 if (rows.length === 0) {

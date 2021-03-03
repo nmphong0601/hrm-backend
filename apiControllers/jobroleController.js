@@ -1,9 +1,10 @@
 var express = require('express');
-var jobroleRepo = require('../repos/jobroleRepo');
+var jobroleRepo = require('../repos/jobroleRepo'), 
+    authRepo = require('../repos/authRepo');
 
 var router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('', authRepo.verifyAccessToken, (req, res) => {
     jobroleRepo.loadAll().then(rows => {
         res.json(rows);
     }).catch(err => {
@@ -35,7 +36,7 @@ router.get('/', (req, res) => {
     // });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', authRepo.verifyAccessToken, (req, res) => {
     if (req.params.id) {
         var id = req.params.id;
 
@@ -63,6 +64,63 @@ router.get('/:id', (req, res) => {
             msg: 'error'
         });
     }
+});
+
+router.post('', authRepo.verifyAccessToken, (req, res) => {
+    jobroleRepo.insert(req.body)
+        .then(insertId => {
+            res.statusCode = 201;
+            res.json(req.body);
+        })
+        .catch(err => {
+            console.log(err);
+            res.statusCode = 500;
+            res.end();
+        });
+});
+
+router.put('/:id', authRepo.verifyAccessToken, (req, res) => {
+    if (isNaN(req.params.id)) {
+        res.statusCode = 400;
+        res.json({
+            msg: 'error'
+        });
+
+        return;
+    }
+    
+    jobroleRepo.update(req.params.id, req.body)
+        .then(payroll => {
+            res.statusCode = 200;
+            res.json(req.body);
+        })
+        .catch(err => {
+            console.log(err);
+            res.statusCode = 500;
+            res.end();
+        });
+});
+
+router.delete('/:id', authRepo.verifyAccessToken, (req, res) => {
+    if (isNaN(req.params.id)) {
+        res.statusCode = 400;
+        res.json({
+            msg: 'error'
+        });
+
+        return;
+    }
+    
+    jobroleRepo.delete(req.params.id)
+        .then(payroll => {
+            res.statusCode = 200;
+            res.json(req.body);
+        })
+        .catch(err => {
+            console.log(err);
+            res.statusCode = 500;
+            res.end();
+        });
 });
 
 module.exports = router;

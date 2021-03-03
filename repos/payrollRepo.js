@@ -39,6 +39,16 @@ exports.insert = (pay) => {
 	return db.insert(sql);
 }
 
+exports.update = (id, pay) => {
+    var sql = `update payrolls set salary = ${pay.salary}, bonus = ${pay.bonus}, personal_income_tax = ${pay.personal_income_tax}, status = ${pay.status} where oid = ${id}`;
+	return db.update(sql);
+}
+
+exports.updateByEmployee = (employee_oid, pay) => {
+    var sql = `update payrolls set salary = ${pay.salary}, bonus = ${pay.bonus}, personal_income_tax = ${pay.personal_income_tax}, status = ${pay.status} where employee_oid = ${employee_oid}`;
+	return db.update(sql);
+}
+
 exports.delete = function (id) {
 	var sql = `delete from payrolls where oid = ${id}`;
 	return db.delete(sql);

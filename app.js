@@ -34,7 +34,7 @@ app.use('/api/v1/departments', departmentCtrl);
 app.use('/api/v1/jobroles', jobroleCtrl);
 app.use('/api/v1/employees', employeeCtrl);
 app.use('/api/v1/users', userCtrl);
-app.use('/api/v1/payroll', verifyAccessToken, payrollCtrl);
+app.use('/api/v1/payrolls', verifyAccessToken, payrollCtrl);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

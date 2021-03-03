@@ -22,14 +22,16 @@ exports.generateAccessToken = userObj => {
 
 exports.verifyAccessToken = (req, res, next) => {
     var token = req.headers['x-access-token'];
+    
     if (token) {
         jwt.verify(token, opts.ACCESS_TOKEN.SECRET_KEY, (err, payload) => {
             if (err) {
-                res.statusCode = 401;
-                res.json({
-                    msg: 'verify failed',
-                    error: err
-                });
+                // res.statusCode = 401;
+                // res.json({
+                //     msg: 'verify failed',
+                //     error: err
+                // });
+                return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
             } else {
                 req.token_payload = payload;
                 next();
@@ -38,7 +40,7 @@ exports.verifyAccessToken = (req, res, next) => {
     } else {
         res.statusCode = 403;
         res.json({
-            msg: 'no token found'
+            msg: 'No token found'
         });
     }
 };
