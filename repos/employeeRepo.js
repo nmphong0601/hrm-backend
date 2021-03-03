@@ -3,7 +3,7 @@ var db = require('../fn/postgresql-db'),
     opts = require('../fn/opts');
 
 exports.loadAll = function() {
-    var sql = 'select * from employees';
+    var sql = 'select employees.*, json_agg(departments) AS "departments", json_agg(jobroles) AS "jobroles" from employees inner join departments on employees.department_oid = departments.oid inner join jobroles on employees.jobrole_oid = jobroles.oid GROUP BY employees.oid';
     return db.load(sql);
 }
 
