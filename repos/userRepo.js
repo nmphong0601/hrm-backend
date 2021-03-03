@@ -1,6 +1,6 @@
 var md5 = require('crypto-js/md5');
 
-var db = require('../fn/mysql-db');
+var db = require('../fn/postgresql-db');
 
 exports.add = function(poco) {
     // poco = {

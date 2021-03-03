@@ -2,7 +2,7 @@ var randtoken = require('rand-token'),
     jwt = require('jsonwebtoken'),
     moment = require('moment');
 
-var db = require('../fn/mysql-db'),
+var db = require('../fn/postgresql-db'),
     opts = require('../fn/opts');
 
 //

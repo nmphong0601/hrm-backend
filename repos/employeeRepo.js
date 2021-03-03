@@ -1,5 +1,5 @@
 var md5 = require('crypto-js/md5');
-var db = require('../fn/mysql-db'),
+var db = require('../fn/postgresql-db'),
     opts = require('../fn/opts');
 
 exports.loadAll = function() {
@@ -53,7 +53,7 @@ exports.insert = (emp) => {
 }
 
 exports.update = (id, emp) => {
-    var sql = `update employees set first_name = '${emp.first_name}', last_name = '${emp.last_name}' , full_name = '${emp.first_name} ${emp.last_name}' , birth_date = '${emp.birth_date}' , gender = '${emp.gender}' , avatar = '${emp.avatar}' , phone = '${emp.phone}' , address = '${emp.address}' , email = '${emp.email}', jobrole_oid = '${emp.jobrole_oid}', department_oid = '${dep.department_oid}' where oid = ${id}`;
+    var sql = `update employees set first_name = '${emp.first_name}', last_name = '${emp.last_name}' , full_name = '${emp.first_name} ${emp.last_name}' , birth_date = '${emp.birth_date}' , gender = '${emp.gender}' , avatar = '${emp.avatar}' , phone = '${emp.phone}' , address = '${emp.address}' , email = '${emp.email}', jobrole_oid = '${emp.jobrole_oid}', department_oid = '${emp.department_oid}' where oid = ${id}`;
 	return db.update(sql);
 }
 

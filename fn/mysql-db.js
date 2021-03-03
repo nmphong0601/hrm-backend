@@ -51,7 +51,7 @@ exports.update = function(sql) {
             if (error) {
                 reject(error);
             } else {
-                resolve(value.insertId);
+                resolve(value);
             }
 
             cn.end();

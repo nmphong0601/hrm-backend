@@ -15,10 +15,7 @@ var verifyAccessToken = require('./repos/authRepo').verifyAccessToken;
 var app = express();
 
 app.use(morgan('dev'));
-app.use(cors({
-		credentials: true,
-        origin: true
-}));
+app.use(cors());
 app.use(bodyParser.json());
 
 var staticDir = express.static(

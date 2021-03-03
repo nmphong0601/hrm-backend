@@ -1,4 +1,4 @@
-var db = require('../fn/mysql-db'),
+var db = require('../fn/postgresql-db'),
     opts = require('../fn/opts');
 
 exports.loadAll = function() {
