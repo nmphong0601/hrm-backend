@@ -15,7 +15,10 @@ var verifyAccessToken = require('./repos/authRepo').verifyAccessToken;
 var app = express();
 
 app.use(morgan('dev'));
-app.use(cors());
+app.use(cors({
+		credentials: true,
+        origin: true
+}));
 app.use(bodyParser.json());
 
 var staticDir = express.static(
@@ -23,12 +26,9 @@ var staticDir = express.static(
 );
 app.use(staticDir);
 
-// app.get('/', (req, res) => {
-// 	var ret = {
-// 		msg: 'hello from nodejs api'
-// 	};
-// 	res.json(ret);
-// });
+app.get('/', (req, res) => {
+	res.send("Hello from nodejs hrm demo api");
+});
 
 app.use('/api/v1/departments', departmentCtrl);
 app.use('/api/v1/jobroles', jobroleCtrl);
