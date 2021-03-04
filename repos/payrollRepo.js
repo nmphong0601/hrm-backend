@@ -3,7 +3,7 @@ opts = require('../fn/opts');
 
 exports.loadAll = function() {
     // var sql = 'select payrolls.*, employees.full_name, employees.email, jobroles.name as jobrole_name from payrolls inner join employees on payrolls.employee_oid = employees.oid inner join jobroles on employees.jobrole_oid = jobroles.oid';
-    var sql = 'select payrolls.*, json_agg(employees) AS "employees" from payrolls inner join employees on payrolls.employee_oid = employees.oid GROUP BY payrolls.oid';
+    var sql = 'select payrolls.*, json_agg(employees) AS "employees", jobroles.name AS jobrole_name from payrolls inner join employees on payrolls.employee_oid = employees.oid inner join jobroles on employees.jobrole_oid = jobroles.oid GROUP BY payrolls.oid';
     return db.load(sql);
 }
 
