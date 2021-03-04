@@ -32,7 +32,7 @@ exports.resetPassword = (user_name) => {
 exports.login = function(user_name, password) {
     return new Promise((resolve, reject) => {
         var md5_password = md5(password);
-        var sql = `select users.*, json_agg(employees.*) AS "employees" from users inner join employees on users.employee_oid = employees.oid where user_name = '${user_name}' and password = '${md5_password} GROUP BY users.oid'`;
+        var sql = `select users.*, json_agg(employees) AS "employees" from users inner join employees on users.employee_oid = employees.oid where user_name = '${user_name}' and password = '${md5_password} GROUP BY users.oid'`;
         db.load(sql)
             .then(rows => {
                 if (rows.length === 0) {
