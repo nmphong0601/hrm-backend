@@ -18,15 +18,15 @@ exports.load = function(id) {
     return db.load(sql);
 }
 
-exports.loadByEmployee = function(depOID) {
-	var sql = `select * from payrolls where employee_oid = ${depOID}`;
+exports.loadByEmployee = function(empOID) {
+	var sql = `select * from payrolls where employee_oid = ${empOID}`;
 	return db.load(sql);
 }
 
-exports.loadByEmployeePage = function(depOID, page) {
+exports.loadByEmployeePage = function(empOID, page) {
     const limit = opts.GENERAL.PAY_PER_PAGE + 1;
     const offset = (page - 1) * opts.GENERAL.PAY_PER_PAGE;
-    const sql = `select * from payrolls where employee_oid = ${depOID} limit ${limit} offset ${offset}`;
+    const sql = `select * from payrolls where employee_oid = ${empOID} limit ${limit} offset ${offset}`;
     return db.load(sql);
 }
 
