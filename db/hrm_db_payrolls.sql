@@ -27,6 +27,7 @@ CREATE TABLE `payrolls` (
   `employee_oid` int DEFAULT NULL,
   `salary` decimal(15,3) DEFAULT NULL COMMENT 'Lương cơ bản',
   `bonus` decimal(15,3) DEFAULT NULL COMMENT 'Tiền hoa hồng',
+  `absent_day` int DEFAULT NULL COMMENT 'Số ngày nghỉ (không phép)',
   `personal_income_tax` float DEFAULT NULL COMMENT 'Thuế thu nhập cá nhân',
   `status` int DEFAULT '0',
   `total_salary` decimal(15,3) GENERATED ALWAYS AS ((((((`salary` - (`salary` * `personal_income_tax`)) - (`salary` * 0.01)) - (`salary` * 0.015)) - (`salary` * 0.08)) + `bonus`)) VIRTUAL COMMENT 'Tổng lương thực lãnh',
